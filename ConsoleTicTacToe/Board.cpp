@@ -19,9 +19,15 @@ void Board::Create()
 // Draw the game board
 void Board::Draw()
 {
-	cout << UNDERLINE << boardSlots[0][0].getType() << "|" << boardSlots[1][0].getType() << "|" << boardSlots[2][0].getType() << endl;
-	cout << UNDERLINE << boardSlots[0][1].getType() << "|" << boardSlots[1][1].getType() << "|" << boardSlots[2][1].getType() << CLOSEUNDERLINE << endl;
-	cout << boardSlots[0][2].getType() << "|" << boardSlots[1][2].getType() << "|" << boardSlots[2][2].getType() << endl ;
+	cout << "     |  " << "    |  " << endl;
+	cout << "  " << boardSlots[0][0].getType() << "  |   " << boardSlots[1][0].getType() << "  |   " << boardSlots[2][0].getType() << endl;
+	cout << " " << UNDERLINE << "    |  " << "    |    " << CLOSEUNDERLINE << endl;
+	cout << "     |  " << "    |   " << endl;
+	cout << "  " << boardSlots[0][1].getType() << "  |   " << boardSlots[1][1].getType() << "  |   " << boardSlots[2][1].getType() << endl;
+	cout << " " << UNDERLINE << "    |  " << "    |    " << CLOSEUNDERLINE << endl;
+	cout << "     |  " << "    |   " << endl;
+	cout << "  " << boardSlots[0][2].getType() << "  |   " << boardSlots[1][2].getType() << "  |   " << boardSlots[2][2].getType() << endl;
+	cout << "     |  " << "    |   " << endl << endl;
 }
 
 void Board::Reset()
