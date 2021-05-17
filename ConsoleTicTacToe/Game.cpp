@@ -13,15 +13,18 @@ bool won = false;
 // MAIN GAME LOOP
 void Game::Run()
 {
-	while (!boardFull) {
-		// Check for Wins
-		CheckWin(Token::cross);
-		CheckWin(Token::naught);
+	while (!boardFull && !won) {
 
 		CheckBoardFull(); // Check if board is full
 
 		if (CheckBoardFull())
 			DrawCondition();
+
+		else if (CheckWin(Token::cross))
+			WinCondition(Token::cross);
+
+		else if (CheckWin(Token::naught))
+			WinCondition(Token::cross);
 
 		else {
 			Refresh();
@@ -92,58 +95,78 @@ void Game::TakeTurn()
 
 	// NAUGHT'S TURN
 	while (isNaughtTurn && !boardFull) {
-		cout << "Pick a spot \n 1, 2, 3 \n 4, 5, 6 \n 7, 8, 9 \n";
+		cout << "   Pick a spot \n     1, 2, 3 \n     4, 5, 6 \n     7, 8, 9 \n";
 
 		cin >> input;
 
 		switch (input) {
 		case 1:
-			while (!board.CheckOccupied(0, 0)) {
+			if (!board.CheckOccupied(0, 0)) {
 				board.setToken(0, 0, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 2:
-			while (!board.CheckOccupied(1, 0)) {
+			if (!board.CheckOccupied(1, 0)) {
 				board.setToken(1, 0, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 3:
-			while (!board.CheckOccupied(2, 0)) {
+			if (!board.CheckOccupied(2, 0)) {
 				board.setToken(2, 0, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 4:
-			while (!board.CheckOccupied(0, 1)) {
+			if (!board.CheckOccupied(0, 1)) {
 				board.setToken(0, 1, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 5:
-			while (!board.CheckOccupied(1, 1)) {
+			if (!board.CheckOccupied(1, 1)) {
 				board.setToken(1, 1, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 6:
-			while (!board.CheckOccupied(2, 1)) {
+			if (!board.CheckOccupied(2, 1)) {
 				board.setToken(2, 1, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 7:
-			while (!board.CheckOccupied(0, 2)) {
+			if (!board.CheckOccupied(0, 2)) {
 				board.setToken(0, 2, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 8:
-			while (!board.CheckOccupied(1, 2)) {
+			if (!board.CheckOccupied(1, 2)) {
 				board.setToken(1, 2, Token::naught);
 			}
+			else
+				return;
 			break;
 		case 9:
-			while (!board.CheckOccupied(2, 2)) {
+			if (!board.CheckOccupied(2, 2)) {
 				board.setToken(2, 2, Token::naught);
 			}
+			else
+				return;
 			break;
 		}
 		isNaughtTurn = false; // Switch turns
+
+		return;
 	}
 }
 
@@ -160,47 +183,48 @@ void Game::Refresh()
 	system("cls");
 
 	if (!Game::isNaughtTurn) {
-		cout << RED << UNDERLINE <<"\Cross's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
+		cout << RED << "   " << UNDERLINE <<"\Cross's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
 	}
 	else
-		cout << CYN << UNDERLINE << "\Naught's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
+		cout << CYN << "  " << UNDERLINE << "\Naught's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
 
 	board.Draw();
 }
 
-void Game::CheckWin(char token)
+bool Game::CheckWin(char token) // Check win condition with given Token
 {
 	// CHECK ROW WIN CONDITION
-	for (int row = 0; row < board.xSize; row++)
+	for (int row = 0; row < board.xSize && !won; row++)
 	{
 		if (checkRow(row, token)) {
-			WinCondition(token);
+			return true;
 		}
 	}
 
 	// CHECK COLUMN WIN CONDITION
-	for (int col = 0; col < board.ySize; col++)
+	for (int col = 0; col < board.ySize && !won; col++)
 	{
 		if (checkCol(col, token)) {
-			WinCondition(token);
+			return true;
 		}
 	}
 
 	// CHECK RIGHT DIAGONAL WIN CONDITION
 	if (board.boardSlots[0][2].getType() == token &&
 		board.boardSlots[1][1].getType() == token &&
-		board.boardSlots[2][0].getType() == token) {
+		board.boardSlots[2][0].getType() == token && !won) {
 
-		WinCondition(token);
+		return true;
 	}
 
 	// CHECK LEFT DIAGONAL WIN CONDITION
-	if (board.boardSlots[0][0].getType() == token &&
-		board.boardSlots[1][1].getType() == token&&
-		board.boardSlots[2][2].getType() == token) {
+	else if (board.boardSlots[0][0].getType() == token &&
+			board.boardSlots[1][1].getType() == token &&
+			board.boardSlots[2][2].getType() == token && !won) {
 
-		WinCondition(token);
+			return true;
 	}
+	return false;
 }
 
 bool Game::checkCol(int col, char token)
@@ -223,8 +247,8 @@ void Game::WinCondition(const char winner)
 	won = true;
 
 	system("cls");
-	cout << winner << " Wins!";
-	cout << "Play again? \n 1. Yes \n 2. No \n";
+	cout << winner << " Wins! \n" << endl;
+	cout << "Play again? \n 1. Yes \n 2. No \n" << endl;
 
 	cin >> playAgainInput;
 
@@ -238,7 +262,6 @@ void Game::WinCondition(const char winner)
 	case 2:
 		Shutdown();
 	}
-	return;
 }
 
 // Runs when the board is full and there are no winners
