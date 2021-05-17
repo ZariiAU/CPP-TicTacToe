@@ -1,6 +1,8 @@
 #include "Board.h"
+#include "Game.h"
 
-#define UNDERLINE "\033[4m"
+//Define Escape Codes for ~fanciness~
+#define UNDERLINE "\033[4m" // Underline
 #define CLOSEUNDERLINE "\033[0m"
 
 using namespace std;

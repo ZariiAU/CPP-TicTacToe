@@ -1,16 +1,28 @@
 #include "Game.h"
 #include "Board.h"
 
+#define UNDERLINE "\033[4m" // Underline
+#define CLOSEUNDERLINE "\033[0m"
+#define RSTCLR "\033[37m" // Reset Colour
+#define RED "\033[31m" // Red
+#define CYN "\033[36m" // Cyan
+
 int input;
+bool won = false;
 
 // MAIN GAME LOOP
 void Game::Run()
 {
 	while (!boardFull) {
-		CheckWin();
-		CheckBoardFull();
+		// Check for Wins
+		CheckWin(Token::cross);
+		CheckWin(Token::naught);
+
+		CheckBoardFull(); // Check if board is full
+
 		if (CheckBoardFull())
 			DrawCondition();
+
 		else {
 			Refresh();
 			TakeTurn();
@@ -23,7 +35,6 @@ void Game::TakeTurn()
 {
 	// CROSS'S TURN
 	while (!isNaughtTurn && !boardFull) {
-		cout << "\Cross's Turn \n";
 		cout << "Pick a spot \n 1, 2, 3 \n 4, 5, 6 \n 7, 8, 9 \n";
 
 		cin >> input;
@@ -81,7 +92,6 @@ void Game::TakeTurn()
 
 	// NAUGHT'S TURN
 	while (isNaughtTurn && !boardFull) {
-		cout << "\Naught's Turn \n";
 		cout << "Pick a spot \n 1, 2, 3 \n 4, 5, 6 \n 7, 8, 9 \n";
 
 		cin >> input;
@@ -148,59 +158,48 @@ void Game::Shutdown()
 void Game::Refresh()
 {
 	system("cls");
+
+	if (!Game::isNaughtTurn) {
+		cout << RED << UNDERLINE <<"\Cross's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
+	}
+	else
+		cout << CYN << UNDERLINE << "\Naught's Turn\n" << RSTCLR << CLOSEUNDERLINE << endl;
+
 	board.Draw();
 }
 
-void Game::CheckWin()
+void Game::CheckWin(char token)
 {
 	// CHECK ROW WIN CONDITION
 	for (int row = 0; row < board.xSize; row++)
 	{
-		if (checkRow(row, Token::naught)) {
-			WinCondition(Token::naught);
-		}
-		else if (checkRow(row, Token::cross)) {
-			WinCondition(Token::cross);
+		if (checkRow(row, token)) {
+			WinCondition(token);
 		}
 	}
 
 	// CHECK COLUMN WIN CONDITION
 	for (int col = 0; col < board.ySize; col++)
 	{
-		if (checkCol(col, Token::naught)) {
-			WinCondition(Token::naught);
-		}
-		else if (checkCol(col, Token::cross)) {
-			WinCondition(Token::cross);
+		if (checkCol(col, token)) {
+			WinCondition(token);
 		}
 	}
 
 	// CHECK RIGHT DIAGONAL WIN CONDITION
-	if (board.boardSlots[0][2].getType() &&
-		board.boardSlots[1][1].getType() &&
-		board.boardSlots[2][0].getType() == Token::naught) {
+	if (board.boardSlots[0][2].getType() == token &&
+		board.boardSlots[1][1].getType() == token &&
+		board.boardSlots[2][0].getType() == token) {
 
-		WinCondition(Token::naught);
+		WinCondition(token);
 	}
-	else if (board.boardSlots[0][2].getType() &&
-		board.boardSlots[1][1].getType() &&
-		board.boardSlots[2][2].getType() == Token::cross) {
 
-		WinCondition(Token::cross);
-
-	}
 	// CHECK LEFT DIAGONAL WIN CONDITION
-	if (board.boardSlots[0][0].getType() &&
-		board.boardSlots[1][1].getType() &&
-		board.boardSlots[2][2].getType() == Token::naught) {
+	if (board.boardSlots[0][0].getType() == token &&
+		board.boardSlots[1][1].getType() == token&&
+		board.boardSlots[2][2].getType() == token) {
 
-		WinCondition(Token::naught);
-	}
-	else if (board.boardSlots[0][0].getType() &&
-		board.boardSlots[1][1].getType() &&
-		board.boardSlots[2][2].getType() == Token::cross) {
-
-		WinCondition(Token::cross);
+		WinCondition(token);
 	}
 }
 
@@ -221,6 +220,7 @@ bool Game::checkRow(int row, char token)
 void Game::WinCondition(const char winner)
 {
 	int playAgainInput;
+	won = true;
 
 	system("cls");
 	cout << winner << " Wins!";
@@ -233,6 +233,7 @@ void Game::WinCondition(const char winner)
 		board.Reset();
 		Refresh();
 		boardFull = false;
+		won = false;
 		break;
 	case 2:
 		Shutdown();

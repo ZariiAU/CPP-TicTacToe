@@ -25,7 +25,7 @@ public:
 
 	void Refresh();
 
-	void CheckWin();
+	void CheckWin(char token);
 
 	bool checkRow(int row, char token);
 	
