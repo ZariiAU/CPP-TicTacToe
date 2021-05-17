@@ -4,6 +4,9 @@
 //Define Escape Codes for ~fanciness~
 #define UNDERLINE "\033[4m" // Underline
 #define CLOSEUNDERLINE "\033[0m"
+#define RSTCLR "\033[37m" // Reset Colour
+#define RED "\033[31m" // Red
+#define CYN "\033[36m" // Cyan
 
 using namespace std;
 
