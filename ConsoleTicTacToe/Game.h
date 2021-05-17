@@ -27,6 +27,10 @@ public:
 
 	void CheckWin();
 
+	bool checkRow(int row, char token);
+	
+	bool checkCol(int row, char token);
+
 	void WinCondition(const char winner);
 
 	bool CheckBoardFull();

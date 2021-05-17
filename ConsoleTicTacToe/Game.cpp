@@ -1,11 +1,6 @@
 #include "Game.h"
 #include "Board.h"
 
-/* TO FIX
-CheckWin();
-
-*/
-
 int input;
 
 // MAIN GAME LOOP
@@ -158,31 +153,82 @@ void Game::Refresh()
 
 void Game::CheckWin()
 {
+	// CHECK ROW WIN CONDITION
 	for (int row = 0; row < board.xSize; row++)
 	{
-		for (int col = 0; col < board.xSize; col++)
-		{
-			if (board.boardSlots[row][col].getType() == Token::cross) {
-				WinCondition(Token::cross);
-			}
-			else if (board.boardSlots[row][col].getType() == Token::naught) {
-				WinCondition(Token::naught);
-			}
+		if (checkRow(row, Token::naught)) {
+			WinCondition(Token::naught);
+		}
+		else if (checkRow(row, Token::cross)) {
+			WinCondition(Token::cross);
 		}
 	}
 
-	
+	// CHECK COLUMN WIN CONDITION
+	for (int col = 0; col < board.ySize; col++)
+	{
+		if (checkCol(col, Token::naught)) {
+			WinCondition(Token::naught);
+		}
+		else if (checkCol(col, Token::cross)) {
+			WinCondition(Token::cross);
+		}
+	}
+
+	// CHECK RIGHT DIAGONAL WIN CONDITION
+	if (board.boardSlots[0][2].getType() &&
+		board.boardSlots[1][1].getType() &&
+		board.boardSlots[2][0].getType() == Token::naught) {
+
+		WinCondition(Token::naught);
+	}
+	else if (board.boardSlots[0][2].getType() &&
+		board.boardSlots[1][1].getType() &&
+		board.boardSlots[2][2].getType() == Token::cross) {
+
+		WinCondition(Token::cross);
+
+	}
+	// CHECK LEFT DIAGONAL WIN CONDITION
+	if (board.boardSlots[0][0].getType() &&
+		board.boardSlots[1][1].getType() &&
+		board.boardSlots[2][2].getType() == Token::naught) {
+
+		WinCondition(Token::naught);
+	}
+	else if (board.boardSlots[0][0].getType() &&
+		board.boardSlots[1][1].getType() &&
+		board.boardSlots[2][2].getType() == Token::cross) {
+
+		WinCondition(Token::cross);
+	}
+}
+
+bool Game::checkCol(int col, char token)
+{
+	return token == board.boardSlots[col][0].getType() &&
+		token == board.boardSlots[col][1].getType() &&
+		token == board.boardSlots[col][2].getType();
+}
+
+bool Game::checkRow(int row, char token)
+{
+	return token == board.boardSlots[0][row].getType() &&
+		token == board.boardSlots[1][row].getType() &&
+		token == board.boardSlots[2][row].getType();
 }
 
 void Game::WinCondition(const char winner)
 {
+	int playAgainInput;
+
 	system("cls");
 	cout << winner << " Wins!";
 	cout << "Play again? \n 1. Yes \n 2. No \n";
 
-	cin >> input;
+	cin >> playAgainInput;
 
-	switch (input) {
+	switch (playAgainInput) {
 	case 1:
 		board.Reset();
 		Refresh();
