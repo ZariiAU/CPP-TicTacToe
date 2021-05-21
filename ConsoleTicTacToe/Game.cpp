@@ -7,7 +7,7 @@
 #define RED "\033[31m" // Red
 #define CYN "\033[36m" // Cyan
 
-int input;
+char input;
 bool won = false;
 
 // MAIN GAME LOOP
@@ -24,7 +24,7 @@ void Game::Run()
 			WinCondition(Token::cross);
 
 		else if (CheckWin(Token::naught))
-			WinCondition(Token::cross);
+			WinCondition(Token::naught);
 
 		else {
 			Refresh();
@@ -36,138 +36,169 @@ void Game::Run()
 
 void Game::TakeTurn()
 {
+	int intInput;
+
+	cout << "   Pick a spot \n     1, 2, 3 \n     4, 5, 6 \n     7, 8, 9 \n";
+
+	cin >> input;
+
+	intInput = (int)input - 48; // Return the ASCII integer value of input and -48 as integer 0 = 48
+
 	// CROSS'S TURN
 	while (!isNaughtTurn && !boardFull) {
-		cout << "Pick a spot \n 1, 2, 3 \n 4, 5, 6 \n 7, 8, 9 \n";
 
-		cin >> input;
+		if (intInput < 9 && intInput >= 0) {
 
-		switch (input) {
-		case 1:
-			while (!board.CheckOccupied(0, 0)) { // Check if board slot 0,0 is occupied
-				board.setToken(0, 0, Token::cross); // Set the value of 0,0 to 'X'
+			if (intInput == 1) {
+				while (!board.CheckOccupied(0, 0)) { // Check if board slot 0,0 is occupied
+					board.setToken(0, 0, Token::cross); // Set Token
+					isNaughtTurn = true; // Switch turns		
+				}
 			}
-			break;
-		case 2:
-			while (!board.CheckOccupied(1, 0)) {
-				board.setToken(1, 0, Token::cross);
+
+			else if (intInput == 2) {
+				while (!board.CheckOccupied(1, 0)) {
+					board.setToken(1, 0, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 3:
-			while (!board.CheckOccupied(2, 0)) {
-				board.setToken(2, 0, Token::cross);
+			else if (intInput == 3) {
+				while (!board.CheckOccupied(2, 0)) {
+					board.setToken(2, 0, Token::cross);
+					isNaughtTurn = true; // Switch turns	
+				}
 			}
-			break;
-		case 4:
-			while (!board.CheckOccupied(0, 1)) {
-				board.setToken(0, 1, Token::cross);
+
+				
+			else if (intInput == 4) {
+				while (!board.CheckOccupied(0, 1)) {
+					board.setToken(0, 1, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 5:
-			while (!board.CheckOccupied(1, 1)) {
-				board.setToken(1, 1, Token::cross);
+
+			else if (intInput == 5) {
+				while (!board.CheckOccupied(1, 1)) {
+					board.setToken(1, 1, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 6:
-			while (!board.CheckOccupied(2, 1)) {
-				board.setToken(2, 1, Token::cross);
+
+			else if (intInput == 6) {
+				while (!board.CheckOccupied(2, 1)) {
+					board.setToken(2, 1, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 7:
-			while (!board.CheckOccupied(0, 2)) {
-				board.setToken(0, 2, Token::cross);
+
+			else if (intInput == 7) {
+				while (!board.CheckOccupied(0, 2)) {
+					board.setToken(0, 2, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 8:
-			while (!board.CheckOccupied(1, 2)) {
-				board.setToken(1, 2, Token::cross);
+
+			else if (intInput == 8) {
+				while (!board.CheckOccupied(1, 2)) {
+					board.setToken(1, 2, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		case 9:
-			while (!board.CheckOccupied(2, 2)) {
-				board.setToken(2, 2, Token::cross);
+
+			else if (intInput == 9) {
+				while (!board.CheckOccupied(2, 2)) {
+					board.setToken(2, 2, Token::cross);
+					isNaughtTurn = true; // Switch turns
+				}
 			}
-			break;
-		}
-		isNaughtTurn = true; // Switch turns
-		return;
+
+			return;
+			}
+			else {
+				cout << "Invalid Input \n";
+				system("pause");
+				return;
+			}
 	}
 
 	// NAUGHT'S TURN
+
 	while (isNaughtTurn && !boardFull) {
-		cout << "   Pick a spot \n     1, 2, 3 \n     4, 5, 6 \n     7, 8, 9 \n";
 
-		cin >> input;
+		if (intInput <= 9 && intInput > 0) {
 
-		switch (input) {
-		case 1:
-			if (!board.CheckOccupied(0, 0)) {
-				board.setToken(0, 0, Token::naught);
+			if (intInput == 1) {
+				while (!board.CheckOccupied(0, 0)) { // Check if board slot 0,0 is occupied
+					board.setToken(0, 0, Token::naught);
+					isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 2:
-			if (!board.CheckOccupied(1, 0)) {
-				board.setToken(1, 0, Token::naught);
+
+			else if (intInput == 2) {
+				while (!board.CheckOccupied(1, 0)) {
+					board.setToken(1, 0, Token::naught);
+					isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 3:
-			if (!board.CheckOccupied(2, 0)) {
-				board.setToken(2, 0, Token::naught);
+
+			else if (intInput == 3) {
+				while (!board.CheckOccupied(2, 0)) {
+					board.setToken(2, 0, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 4:
-			if (!board.CheckOccupied(0, 1)) {
-				board.setToken(0, 1, Token::naught);
+
+			else if (intInput == 4) {
+				while (!board.CheckOccupied(0, 1)) {
+					board.setToken(0, 1, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 5:
-			if (!board.CheckOccupied(1, 1)) {
-				board.setToken(1, 1, Token::naught);
+
+			else if (intInput == 5) {
+				while (!board.CheckOccupied(1, 1)) {
+					board.setToken(1, 1, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 6:
-			if (!board.CheckOccupied(2, 1)) {
-				board.setToken(2, 1, Token::naught);
+
+			else if (intInput == 6) {
+				while (!board.CheckOccupied(2, 1)) {
+					board.setToken(2, 1, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 7:
-			if (!board.CheckOccupied(0, 2)) {
-				board.setToken(0, 2, Token::naught);
+
+			else if (intInput == 7) {
+				while (!board.CheckOccupied(0, 2)) {
+					board.setToken(0, 2, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 8:
-			if (!board.CheckOccupied(1, 2)) {
-				board.setToken(1, 2, Token::naught);
+
+			else if (intInput == 8) {
+				while (!board.CheckOccupied(1, 2)) {
+					board.setToken(1, 2, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
-		case 9:
-			if (!board.CheckOccupied(2, 2)) {
-				board.setToken(2, 2, Token::naught);
+
+			else if (intInput == 9) {
+				while (!board.CheckOccupied(2, 2)) {
+					board.setToken(2, 2, Token::naught);
+						isNaughtTurn = false; // Switch turns
+				}
 			}
-			else
-				return;
-			break;
+			return;
 		}
-		isNaughtTurn = false; // Switch turns
+		else {
+			cout << "Invalid Input \n";
+			system("pause");
+			return;
+		}
 
-		return;
 	}
+
 }
 
 // To run before program ends
@@ -267,13 +298,15 @@ void Game::WinCondition(const char winner)
 // Runs when the board is full and there are no winners
 void Game::DrawCondition()
 {
+	int intInput;
+
 	system("cls");
 	cout << "DRAW!" << endl;
 	cout << "Play again? \n 1. Yes \n 2. No \n";
 
-	cin >> input;
+	cin >> intInput;
 
-	switch (input) {
+	switch (intInput) {
 	case 1:
 		board.Reset();
 		Refresh();
