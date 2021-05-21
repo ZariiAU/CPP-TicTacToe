@@ -47,7 +47,7 @@ void Game::TakeTurn()
 	// CROSS'S TURN
 	while (!isNaughtTurn && !boardFull) {
 
-		if (intInput < 9 && intInput >= 0) {
+		if (intInput <= 9 && intInput >= 0) {
 
 			if (intInput == 1) {
 				while (!board.CheckOccupied(0, 0)) { // Check if board slot 0,0 is occupied
