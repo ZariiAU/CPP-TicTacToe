@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroCPP_BinaryFileIO_NPCDa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleTicTacToe", "ConsoleTicTacToe\ConsoleTicTacToe.vcxproj", "{E6408D66-EAC4-41D5-9C32-96EFF4975CCB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PlayerProfileDatabase", "PlayerProfileDatabase\PlayerProfileDatabase.vcxproj", "{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Raylib\Bindings\Raylib.projitems*{f660ff67-d70e-4ae0-9080-d922243e9b6e}*SharedItemsImports = 13
@@ -66,6 +68,16 @@ Global
 		{E6408D66-EAC4-41D5-9C32-96EFF4975CCB}.Release|x64.Build.0 = Release|x64
 		{E6408D66-EAC4-41D5-9C32-96EFF4975CCB}.Release|x86.ActiveCfg = Release|Win32
 		{E6408D66-EAC4-41D5-9C32-96EFF4975CCB}.Release|x86.Build.0 = Release|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Debug|x64.ActiveCfg = Debug|x64
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Debug|x64.Build.0 = Debug|x64
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Debug|x86.ActiveCfg = Debug|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Debug|x86.Build.0 = Debug|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Release|x64.ActiveCfg = Release|x64
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Release|x64.Build.0 = Release|x64
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Release|x86.ActiveCfg = Release|Win32
+		{DE555EE7-6EA4-43E3-B11C-CA51CDCE59B3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
