@@ -3,4 +3,6 @@
 RaylibStarterCS/obj/
 **/Debug/
 **/Release/
-!Raylib/
+!Raylib
+!Raylib/bin/Release/
+!Raylib/bin/Debug/
