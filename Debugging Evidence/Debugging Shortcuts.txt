@@ -1,0 +1,7 @@
+Run: F5
+Stop: Shift + F5
+Restart: Ctrl + Shift + F5
+
+Step Into: F11
+Step Over: F10
+Step Out: Shift + F11
