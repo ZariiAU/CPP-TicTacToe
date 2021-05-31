@@ -8,7 +8,7 @@ using namespace std;
 class Player
 {
 private:
-	char name[10];
+	char name[12];
 	int highscore;
 
 public:
