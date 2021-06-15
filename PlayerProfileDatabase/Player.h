@@ -8,14 +8,19 @@ using namespace std;
 class Player
 {
 private:
-	char name[10];
-	int highscore;
+	char m_name[50];
+	unsigned int m_highscore;
 
 public:
+	Player();
+	Player(const char* name, unsigned int highscore);
+
+	~Player();
+
 	char* GetName();
-	int GetHighscore();
+	unsigned int GetHighscore();
 	void SetName(const char* name);
-	void SetHighscore(int highscore);
+	void SetHighscore(unsigned int highscore);
 
 };
 
