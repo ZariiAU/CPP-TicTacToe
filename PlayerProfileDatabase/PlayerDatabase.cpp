@@ -12,6 +12,10 @@ void PlayerDatabase::Init()
 		fileIn.read((char*)&temp, sizeof(unsigned int));
 		leaderboard.SetPlayersInUse(temp);
 
+		if (temp == 0) {
+			cout << "No Players in Database." << endl;
+		}
+
 		for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) { // For each used player slot, read their data
 
 			fileIn.read((char*)leaderboard.playerList->GetHighscore(), sizeof(unsigned int));
@@ -44,7 +48,8 @@ void PlayerDatabase::Shutdown()
 void PlayerDatabase::Draw()
 {
 	system("cls");
-	leaderboard.Draw();
+	displayMenu();
+	parseUserInput();
 
 }
 
@@ -54,8 +59,65 @@ void PlayerDatabase::Update()
 
 void PlayerDatabase::displayMenu()
 {
+	cout << "(C)reate New Player" << endl;
+	cout << "(D)isplay Leaderboard" << endl;
+	cout << "(S)earch Player" << endl;
+	cout << "(U)pdate Player Data" << endl;
+	cout << "(Q)uit" << endl;
 }
 
 void PlayerDatabase::parseUserInput()
 {
+	char input;
+
+	cin >> input;
+
+	switch (input) {
+	case 'Q':
+		PlayerDatabase::Shutdown();
+
+	case 'C':
+		char playerNameTemp[50];
+		unsigned int playerScoreTemp;
+		
+		cout << "#####################" << endl;
+		cout << "## Player Creation ##" << endl;
+		cout << "#####################" << endl;
+
+		cout << "\nEnter Player Name:" << endl; 
+
+		cin >> (char*)playerNameTemp; // Ask for name input and set a temp variable to hold it until Player class is created
+
+		system("cls");
+
+		//if (cin.good()) {
+		//	cout << "Enter Player Score:" << endl;
+		//	cin >> playerScoreTemp; // Ask for score input and set a temp variable to hold it until Player class is created
+
+		//	system("cls");
+
+		//}
+		
+		return;
+
+	case 'D':
+		// Display leaderboard
+		leaderboard.Draw();
+
+		cin >> input;
+		if (input == 'Q') {
+			return;
+		}
+
+	case 'U':
+		// Display all players
+		// Select a player to modify
+		// Modify data
+		// Save data to file
+		cout << "Updated";
+
+	case 'S':
+		// Binary search
+		cout << "Searched";
+	}
 }
