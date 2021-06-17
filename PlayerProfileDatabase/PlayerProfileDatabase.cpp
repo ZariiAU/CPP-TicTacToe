@@ -8,8 +8,6 @@ using namespace std;
 
 int main()
 {
-    cout << "Database" << endl;
-
     PlayerDatabase database;
     database.Run();
 }
