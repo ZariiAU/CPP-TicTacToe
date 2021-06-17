@@ -28,7 +28,7 @@ unsigned int Player::GetHighscore()
 
 void Player::SetName(const char* name)
 {
-	strcpy_s(this->m_name, 10, name);
+	strcpy_s(this->m_name, 50, name);
 }
 
 void Player::SetHighscore(const unsigned int highscore)
