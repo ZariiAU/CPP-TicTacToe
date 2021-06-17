@@ -12,6 +12,10 @@ Player::Player(const char* name, unsigned int highscore)
 	SetHighscore(highscore);
 }
 
+Player::~Player() {
+
+}
+
 char* Player::GetName()
 {
 	return this->m_name;
@@ -30,4 +34,9 @@ void Player::SetName(const char* name)
 void Player::SetHighscore(const unsigned int highscore)
 {
 	this->m_highscore = highscore;
+}
+
+void Player::Draw()
+{
+	cout << GetName() << " : " << GetHighscore() << endl;
 }

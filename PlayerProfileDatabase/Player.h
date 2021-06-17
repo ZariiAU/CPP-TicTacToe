@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include <iostream>
 
@@ -22,6 +21,7 @@ public:
 	void SetName(const char* name);
 	void SetHighscore(unsigned int highscore);
 
+	void Draw();
 };
 
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "PlayerBoard.h"
-class Game
+class Program
 {
 public:
 	bool isRunning = true;
-	Game();
+	Program();
 
 	void Run();
 

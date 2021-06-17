@@ -1,13 +1,15 @@
 #include <iostream>
+#include <fstream>
+#include "PlayerBoard.h"
+#include "PlayerDatabase.h"
 #include "Player.h"
+
+using namespace std;
 
 int main()
 {
-    Player p;
+    cout << "Database" << endl;
 
-    p.SetName("Jorgeanon");
-    p.SetHighscore(4903874);
-
-    cout << p.GetName() << endl;
-    cout << p.GetHighscore();
+    PlayerDatabase database;
+    database.Run();
 }

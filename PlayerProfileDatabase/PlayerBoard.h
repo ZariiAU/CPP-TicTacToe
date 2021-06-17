@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include "Player.h"
 #pragma once
 class PlayerBoard
@@ -9,9 +7,16 @@ public:
 
 	~PlayerBoard();
 
-private:
+	void Draw();
+
+	unsigned int GetMaxPlayers();
+	unsigned int GetPlayersInUse();
+
+	void SetPlayersInUse(unsigned int numberOfPlayers);
+
 	Player* playerList = nullptr;
 
+private:
 	unsigned int m_maxPlayers = 0;
 	unsigned int m_used = 0;
 };

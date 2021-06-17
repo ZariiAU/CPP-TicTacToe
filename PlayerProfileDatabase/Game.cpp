@@ -1,6 +1,10 @@
 #include "Game.h"
 
-void Game::Run()
+Program::Program()
+{
+}
+
+void Program::Run()
 {
 	Init();
 
@@ -12,8 +16,20 @@ void Game::Run()
 	Shutdown();
 }
 
-void Game::Shutdown()
+void Program::Init()
+{
+}
+
+void Program::Shutdown()
 {
 	cout << "Thanks for playing!";
+}
+
+void Program::Draw()
+{
+}
+
+void Program::Update()
+{
 }
 

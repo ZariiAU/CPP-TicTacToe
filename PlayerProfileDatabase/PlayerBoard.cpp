@@ -16,3 +16,29 @@ PlayerBoard::~PlayerBoard()
 {
 	delete[] playerList;
 }
+
+void PlayerBoard::Draw()
+{
+	cout << "###################" << endl;
+	cout << "Leaderboards!" << endl;
+	cout << "###################" << endl;
+
+	for (unsigned int i = 0; i < m_used; i++) {
+		playerList[i].Draw();
+	}
+}
+
+unsigned int PlayerBoard::GetMaxPlayers()
+{
+	return m_maxPlayers;
+}
+
+unsigned int PlayerBoard::GetPlayersInUse()
+{
+	return m_used;
+}
+
+void PlayerBoard::SetPlayersInUse(unsigned int numberOfPlayers)
+{
+	m_used = numberOfPlayers;
+}
