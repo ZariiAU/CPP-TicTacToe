@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 #include <iostream>
 
@@ -8,15 +7,21 @@ using namespace std;
 class Player
 {
 private:
-	char name[12];
-	int highscore;
+	char m_name[50];
+	unsigned int m_highscore;
 
 public:
-	char* GetName();
-	int GetHighscore();
-	void SetName(const char* name);
-	void SetHighscore(int highscore);
+	Player();
+	Player(const char* name, unsigned int highscore);
 
+	~Player();
+
+	char* GetName();
+	unsigned int GetHighscore();
+	void SetName(const char* name);
+	void SetHighscore(unsigned int highscore);
+
+	void Draw();
 };
 
 

@@ -16,12 +16,6 @@ void DataFile::AddRecord(string imageFilename, string name, int age)
 {
 	Image i = LoadImage(imageFilename.c_str());
 
-	/*Record* r = new Record;
-	r->image = i;
-	r->name = name;
-	r->age = age;
-
-	records.push_back(r);*/
 	recordCount++;
 }
 
