@@ -8,7 +8,7 @@ class Player
 {
 private:
 	char m_name[50];
-	unsigned int m_highscore;
+	int m_highscore;
 
 public:
 	Player();
