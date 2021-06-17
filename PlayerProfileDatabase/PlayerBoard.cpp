@@ -19,13 +19,20 @@ PlayerBoard::~PlayerBoard()
 
 void PlayerBoard::Draw()
 {
+	system("cls");
 	cout << "###################" << endl;
 	cout << "Leaderboards!" << endl;
 	cout << "###################" << endl;
 
-	for (unsigned int i = 0; i < m_used; i++) {
-		playerList[i].Draw();
+	if (!GetPlayersInUse() == 0) {
+		for (unsigned int i = 0; i < m_used; i++) {
+			playerList[i].Draw();
+		}
 	}
+	else {
+		cout << " \n No Players Found." << endl;
+	}
+	cout << "(Q)uit" << endl;
 }
 
 unsigned int PlayerBoard::GetMaxPlayers()
