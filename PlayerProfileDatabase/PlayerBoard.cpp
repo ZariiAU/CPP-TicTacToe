@@ -26,6 +26,7 @@ void PlayerBoard::Draw()
 
 	if (!GetPlayersInUse() == 0) {
 		for (unsigned int i = 0; i < m_used; i++) {
+			cout << i+1 << "] ";
 			playerList[i].Draw();
 		}
 	}
