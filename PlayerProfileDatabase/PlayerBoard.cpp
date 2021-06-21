@@ -5,7 +5,7 @@ PlayerBoard::PlayerBoard(unsigned int maxPlayers)
 {
 	if (m_maxPlayers <= 0)
 		m_maxPlayers = 5;
-	
+
 	if (m_maxPlayers > 100)
 		m_maxPlayers = 100;
 
@@ -21,8 +21,8 @@ void PlayerBoard::Draw()
 {
 	system("cls");
 	cout << "###################" << endl;
-	cout << "Leaderboards!" << endl;
-	cout << "###################" << endl;
+	cout << "## Leaderboards! ##" << endl;
+	cout << "###################\n" << endl;
 
 	if (!GetPlayersInUse() == 0) {
 		for (unsigned int i = 0; i < m_used; i++) {
@@ -32,7 +32,7 @@ void PlayerBoard::Draw()
 	else {
 		cout << " \n No Players Found." << endl;
 	}
-	cout << "(Q)uit" << endl;
+	cout << "\n(Q)uit" << endl;
 }
 
 unsigned int PlayerBoard::GetMaxPlayers()
@@ -48,4 +48,28 @@ unsigned int PlayerBoard::GetPlayersInUse()
 void PlayerBoard::SetPlayersInUse(unsigned int numberOfPlayers)
 {
 	m_used = numberOfPlayers;
+}
+
+void PlayerBoard::AddPlayer()
+{
+	char playerNameTemp[50];
+	unsigned int playerScoreTemp = 0;
+
+	cout << "#####################" << endl;
+	cout << "## Player Creation ##" << endl;
+	cout << "#####################" << endl;
+
+	cout << "\nEnter Player Name:" << endl;
+
+	cin >> (char*)playerNameTemp; // Ask for name input and set a temp variable to hold it until Player class is created
+
+	system("cls");
+
+	cout << "\nEnter Player Score:" << endl;
+
+	cin >> playerScoreTemp;
+
+	playerList[GetPlayersInUse()] = Player(playerNameTemp, playerScoreTemp);
+
+	SetPlayersInUse(GetPlayersInUse() + 1);
 }

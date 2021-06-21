@@ -11,8 +11,9 @@ public:
 
 	unsigned int GetMaxPlayers();
 	unsigned int GetPlayersInUse();
-
 	void SetPlayersInUse(unsigned int numberOfPlayers);
+
+	void AddPlayer();
 
 	Player* playerList = nullptr;
 
