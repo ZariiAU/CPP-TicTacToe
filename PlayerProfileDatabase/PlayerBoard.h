@@ -7,7 +7,7 @@ public:
 
 	~PlayerBoard();
 
-	void Draw();
+	void Draw(bool drawTitleCard, bool appendMode);
 
 	unsigned int GetMaxPlayers();
 	unsigned int GetPlayersInUse();
