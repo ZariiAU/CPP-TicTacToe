@@ -17,12 +17,16 @@ PlayerBoard::~PlayerBoard()
 	delete[] playerList;
 }
 
-void PlayerBoard::Draw()
+void PlayerBoard::Draw(bool drawTitleCard, bool clearScreenBeforeDraw)
 {
-	system("cls");
-	cout << "###################" << endl;
-	cout << "## Leaderboards! ##" << endl;
-	cout << "###################\n" << endl;
+	if(clearScreenBeforeDraw)
+		system("cls");
+
+	if (drawTitleCard) {
+		cout << "###################" << endl;
+		cout << "## Leaderboards! ##" << endl;
+		cout << "###################\n" << endl;
+	}
 
 	if (!GetPlayersInUse() == 0) {
 		for (unsigned int i = 0; i < m_used; i++) {
