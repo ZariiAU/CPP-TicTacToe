@@ -1,5 +1,7 @@
 #include "PlayerBoard.h"
 
+using namespace std;
+
 PlayerBoard::PlayerBoard(unsigned int maxPlayers)
 	:m_maxPlayers(maxPlayers), m_used(0)
 {
@@ -73,6 +75,7 @@ void PlayerBoard::AddPlayer()
 	cout << "\nEnter Player Name:" << endl;
 
 	cin >> (char*)playerNameTemp; // Ask for name input 
+
 
 	system("cls");
 

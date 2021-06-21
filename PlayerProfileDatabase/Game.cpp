@@ -22,7 +22,7 @@ void Program::Init()
 
 void Program::Shutdown()
 {
-	cout << "Thanks for playing!";
+	
 }
 
 void Program::Draw()

@@ -1,5 +1,7 @@
 #include "PlayerDatabase.h"
 
+using namespace std;
+
 // Runs at start-up
 void PlayerDatabase::Init()
 {
@@ -86,8 +88,21 @@ void PlayerDatabase::Edit()
 			system("cls");
 			cout << "Enter new score:" << endl;
 			cin >> newScore;
+
+			// Input verification
+			while (!cin.good()) {
+				// Clear the console-in buffer
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+				system("cls");
+				cout << "Enter new score:" << endl;
+				cin >> newScore;
+			}
 			leaderboard.playerList[i].SetHighscore(newScore);
 			Save("PlayerData.dat");
+
+			return;
 		}
 	}
 }
@@ -116,11 +131,14 @@ void PlayerDatabase::BubbleSort()
 
 void PlayerDatabase::displayMenu()
 {
-	cout << "(C)reate New Player" << endl;
-	cout << "(D)isplay Leaderboard" << endl;
-	cout << "(S)earch Player" << endl;
-	cout << "(U)pdate Player Data" << endl;
-	cout << "(Q)uit" << endl;
+	cout << "###################" << endl;
+	cout << "#    Main Menu    #" << endl;
+	cout << "###################\n" << endl;
+	cout << "[ (C)reate New Player" << endl;
+	cout << "[ (D)isplay Leaderboard" << endl;
+	cout << "[ (S)earch Player" << endl;
+	cout << "[ (U)pdate Player Data" << endl;
+	cout << "[ (Q)uit" << endl;
 }
 
 // Take and manipulate user input

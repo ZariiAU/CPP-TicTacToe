@@ -2,8 +2,6 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
 const unsigned int MAX_NAME_SIZE = 50;
 
 class Player
