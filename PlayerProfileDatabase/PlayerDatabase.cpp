@@ -2,25 +2,7 @@
 
 void PlayerDatabase::Init()
 {
-	// Load database from file
-	ifstream fileIn;
-	fileIn.open("PlayerData.dat", ios::in | ios::binary); // Open file
-
-	if (fileIn.good()) { // Check if the stream is good
-		unsigned int temp = 0;
-
-		fileIn.read((char*)&temp, sizeof(unsigned int));
-		leaderboard.SetPlayersInUse(temp);
-
-		fileIn.read((char*)leaderboard.playerList, sizeof(Player) * leaderboard.GetPlayersInUse());
-
-	}
-	else
-		cout << "Failed to Load File.";
-		return;
-
-	fileIn.close();
-
+	Load("PlayerData.dat");
 }
 
 void PlayerDatabase::Shutdown()
@@ -40,11 +22,11 @@ void PlayerDatabase::Update()
 {
 }
 
-void PlayerDatabase::Save()
+// Save database to file
+void PlayerDatabase::Save(const char* file)
 {
-	// Save database to file
 	ofstream fileOut;
-	fileOut.open("PlayerData.dat", ios::out | ios::binary); // Open file 
+	fileOut.open(file, ios::out | ios::binary); // Open file 
 
 	if (fileOut.good()) { // Check if the stream is good
 		unsigned int temp = leaderboard.GetPlayersInUse();
@@ -55,6 +37,45 @@ void PlayerDatabase::Save()
 	}
 
 	fileOut.close();
+}
+
+// Load database from file
+void PlayerDatabase::Load(const char* file)
+{
+	ifstream fileIn;
+	fileIn.open(file, ios::in | ios::binary); // Open file
+
+	if (fileIn.good()) { // Check if the stream is good
+		unsigned int temp = 0;
+
+		fileIn.read((char*)&temp, sizeof(unsigned int));
+		leaderboard.SetPlayersInUse(temp);
+
+		fileIn.read((char*)leaderboard.playerList, sizeof(Player) * leaderboard.GetPlayersInUse());
+	}
+	
+	else
+		cout << "Failed to Load File.";
+
+	fileIn.close();
+}
+
+void PlayerDatabase::BubbleSort()
+{
+	Player temp;
+
+	bool sorted = false;
+	while (!sorted) {
+		sorted = true;
+		for (unsigned int i = 0; i < leaderboard.GetPlayersInUse() - 1; i++) {
+			if (leaderboard.playerList[i].GetName() < leaderboard.playerList[i+1].GetName()) {
+				temp = leaderboard.playerList[i];
+				leaderboard.playerList[i] = leaderboard.playerList[i + 1];
+				leaderboard.playerList[i + 1] = temp;
+				sorted = false;
+			}
+		}
+	}
 }
 
 void PlayerDatabase::displayMenu()
@@ -82,7 +103,9 @@ void PlayerDatabase::parseUserInput()
 		case 'C':
 		case 'c':
 			leaderboard.AddPlayer();
-			Save();
+			BubbleSort();
+			Save("PlayerData.dat");
+			
 			break;
 		case 'D':
 		case 'd':
@@ -99,7 +122,24 @@ void PlayerDatabase::parseUserInput()
 			// Select a player to modify
 			// Modify data
 			// Save data to file
-			cout << "Updated";
+			leaderboard.Draw();
+
+			char* nameToEdit;
+			cin >> nameToEdit;
+
+			for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) {
+				leaderboard.playerList[i];
+				if (nameToEdit == leaderboard.playerList->GetName()) {
+
+				}
+			}
+			
+
+
+			
+			if (input == 'Q' || input == 'q') {
+				return;
+			}
 			break;
 		case 'S':
 		case 's':

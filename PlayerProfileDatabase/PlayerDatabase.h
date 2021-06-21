@@ -13,7 +13,9 @@ protected:
 	virtual void Shutdown() override;
 	virtual void Draw() override;
 	virtual void Update() override;
-	void Save();
+	void Save(const char* file);
+	void Load(const char* file);
+	void BubbleSort();
 
 private:
 	PlayerBoard leaderboard;
