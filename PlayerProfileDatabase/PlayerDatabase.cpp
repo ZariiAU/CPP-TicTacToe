@@ -113,7 +113,7 @@ void PlayerDatabase::parseUserInput()
 			break;
 		case 'D':
 		case 'd':
-			leaderboard.Draw();
+			leaderboard.Draw(true, true);
 
 			cin >> input;
 			if (input == 'Q' || input == 'q') {
@@ -122,26 +122,30 @@ void PlayerDatabase::parseUserInput()
 			break;
 		case 'U':
 		case 'u':
-			// Display all players
-			// Select a player to modify
-			// Modify data
-			// Save data to file
-			cout << "Which player would you like to edit? \n" << endl;
-			leaderboard.Draw();
-
 			system("cls");
+			cout << "Enter the name of the player you wish to edit: \n" << endl;
+			leaderboard.Draw(false, false);
 			
+			int newScore;
+			char newName[MAX_NAME_SIZE];
 
-			char nameToEdit[50];
+			char nameToEdit[MAX_NAME_SIZE];
 			cin >> nameToEdit;
 
 			for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) {
 				if (strcmp(nameToEdit, leaderboard.playerList[i].GetName()) == 0) {
+					system("cls");
+					cout << "Enter new name:" << endl;
+					cin >> newName;
+					leaderboard.playerList[i].SetName(newName);
 
+					system("cls");
+					cout << "Enter new score:" << endl;
+					cin >> newScore;
+					leaderboard.playerList[i].SetHighscore(newScore);
+					Save("PlayerData.dat");
 				}
 			}
-		
-			
 			if (input == 'Q' || input == 'q') {
 				return;
 			}
