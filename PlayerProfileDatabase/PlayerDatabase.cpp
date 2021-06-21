@@ -3,6 +3,7 @@
 void PlayerDatabase::Init()
 {
 	Load("PlayerData.dat");
+	BubbleSort();
 }
 
 void PlayerDatabase::Shutdown()
@@ -62,18 +63,21 @@ void PlayerDatabase::Load(const char* file)
 
 void PlayerDatabase::BubbleSort()
 {
+	if (leaderboard.GetPlayersInUse() <= 1) return;
+
 	Player temp;
 
 	bool sorted = false;
 	while (!sorted) {
 		sorted = true;
-		for (unsigned int i = 0; i < leaderboard.GetPlayersInUse() - 1; i++) {
-			if (leaderboard.playerList[i].GetName() < leaderboard.playerList[i+1].GetName()) {
+		for (int i = 0; i < leaderboard.GetPlayersInUse() - 1; i++) {
+			if (strcmp(leaderboard.playerList[i].GetName(), leaderboard.playerList[i+1].GetName()) > 0) {
 				temp = leaderboard.playerList[i];
 				leaderboard.playerList[i] = leaderboard.playerList[i + 1];
 				leaderboard.playerList[i + 1] = temp;
 				sorted = false;
 			}
+			
 		}
 	}
 }
@@ -122,20 +126,21 @@ void PlayerDatabase::parseUserInput()
 			// Select a player to modify
 			// Modify data
 			// Save data to file
+			cout << "Which player would you like to edit? \n" << endl;
 			leaderboard.Draw();
 
-			char* nameToEdit;
+			system("cls");
+			
+
+			char nameToEdit[50];
 			cin >> nameToEdit;
 
 			for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) {
-				leaderboard.playerList[i];
-				if (nameToEdit == leaderboard.playerList->GetName()) {
+				if (strcmp(nameToEdit, leaderboard.playerList[i].GetName()) == 0) {
 
 				}
 			}
-			
-
-
+		
 			
 			if (input == 'Q' || input == 'q') {
 				return;
