@@ -7,7 +7,7 @@ public:
 
 	~PlayerBoard();
 
-	void Draw(bool drawTitleCard, bool appendMode);
+	void Draw(bool drawTitleCard, bool clearScreenBeforeDraw); // Booleans control title card existence and if it clears the screen
 
 	unsigned int GetMaxPlayers();
 	unsigned int GetPlayersInUse();
