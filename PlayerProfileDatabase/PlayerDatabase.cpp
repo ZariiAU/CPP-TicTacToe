@@ -1,16 +1,19 @@
 #include "PlayerDatabase.h"
 
+// Runs at start-up
 void PlayerDatabase::Init()
 {
 	Load("PlayerData.dat");
 	BubbleSort();
 }
 
+// Runs at shutdown
 void PlayerDatabase::Shutdown()
 {
 	cout << "Yo." << endl;
 }
 
+// Runs when Draw is called
 void PlayerDatabase::Draw()
 {
 	system("cls");
@@ -61,6 +64,35 @@ void PlayerDatabase::Load(const char* file)
 	fileIn.close();
 }
 
+void PlayerDatabase::Edit()
+{
+	system("cls");
+	cout << "Enter the name of the player you wish to edit: \n" << endl;
+	leaderboard.Draw(false, false);
+
+	int newScore;
+	char newName[MAX_NAME_SIZE];
+
+	char nameToEdit[MAX_NAME_SIZE];
+	cin >> nameToEdit;
+
+	for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) {
+		if (strcmp(nameToEdit, leaderboard.playerList[i].GetName()) == 0) {
+			system("cls");
+			cout << "Enter new name:" << endl;
+			cin >> newName;
+			leaderboard.playerList[i].SetName(newName);
+
+			system("cls");
+			cout << "Enter new score:" << endl;
+			cin >> newScore;
+			leaderboard.playerList[i].SetHighscore(newScore);
+			Save("PlayerData.dat");
+		}
+	}
+}
+
+// Bubble Sort implementation
 void PlayerDatabase::BubbleSort()
 {
 	if (leaderboard.GetPlayersInUse() <= 1) return;
@@ -91,6 +123,7 @@ void PlayerDatabase::displayMenu()
 	cout << "(Q)uit" << endl;
 }
 
+// Take and manipulate user input
 void PlayerDatabase::parseUserInput()
 {
 	char input;
@@ -104,6 +137,7 @@ void PlayerDatabase::parseUserInput()
 		case 'q':
 			PlayerDatabase::Shutdown();
 			break;
+
 		case 'C':
 		case 'c':
 			leaderboard.AddPlayer();
@@ -111,6 +145,7 @@ void PlayerDatabase::parseUserInput()
 			Save("PlayerData.dat");
 			
 			break;
+
 		case 'D':
 		case 'd':
 			leaderboard.Draw(true, true);
@@ -120,41 +155,18 @@ void PlayerDatabase::parseUserInput()
 				return;
 			}
 			break;
+
 		case 'U':
 		case 'u':
-			system("cls");
-			cout << "Enter the name of the player you wish to edit: \n" << endl;
-			leaderboard.Draw(false, false);
-			
-			int newScore;
-			char newName[MAX_NAME_SIZE];
-
-			char nameToEdit[MAX_NAME_SIZE];
-			cin >> nameToEdit;
-
-			for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) {
-				if (strcmp(nameToEdit, leaderboard.playerList[i].GetName()) == 0) {
-					system("cls");
-					cout << "Enter new name:" << endl;
-					cin >> newName;
-					leaderboard.playerList[i].SetName(newName);
-
-					system("cls");
-					cout << "Enter new score:" << endl;
-					cin >> newScore;
-					leaderboard.playerList[i].SetHighscore(newScore);
-					Save("PlayerData.dat");
-				}
-			}
-			if (input == 'Q' || input == 'q') {
-				return;
-			}
+			Edit();
 			break;
+
 		case 'S':
 		case 's':
 			// Binary search
 			cout << "Searched";
 			break;
+
 		default:
 			break;
 			// Unknown

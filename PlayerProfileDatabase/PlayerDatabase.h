@@ -13,8 +13,10 @@ protected:
 	virtual void Shutdown() override;
 	virtual void Draw() override;
 	virtual void Update() override;
+
 	void Save(const char* file);
 	void Load(const char* file);
+	void Edit();
 	void BubbleSort();
 
 private:
