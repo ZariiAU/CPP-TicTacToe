@@ -55,6 +55,8 @@ void PlayerBoard::AddPlayer()
 	char playerNameTemp[50];
 	unsigned int playerScoreTemp = 0;
 
+	system("cls");
+
 	cout << "#####################" << endl;
 	cout << "## Player Creation ##" << endl;
 	cout << "#####################" << endl;
@@ -68,6 +70,15 @@ void PlayerBoard::AddPlayer()
 	cout << "\nEnter Player Score:" << endl;
 
 	cin >> playerScoreTemp;
+
+	while(!cin.good()){
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		
+		system("cls");
+		cout << "\nEnter Player Score:" << endl;
+		cin >> playerScoreTemp;
+	}
 
 	playerList[GetPlayersInUse()] = Player(playerNameTemp, playerScoreTemp);
 
