@@ -12,16 +12,12 @@ void PlayerDatabase::Init()
 		fileIn.read((char*)&temp, sizeof(unsigned int));
 		leaderboard.SetPlayersInUse(temp);
 
-		if (temp == 0) {
-			cout << "No Players in Database." << endl;
-		}
+		fileIn.read((char*)leaderboard.playerList, sizeof(Player) * leaderboard.GetPlayersInUse());
 
-		for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) { // For each used player slot, read their data
-
-			fileIn.read((char*)leaderboard.playerList->GetHighscore(), sizeof(unsigned int));
-			fileIn.read((char*)leaderboard.playerList->GetName(), sizeof(char*));
-		}
 	}
+	else
+		cout << "Failed to Load File.";
+		return;
 
 	fileIn.close();
 
@@ -29,20 +25,7 @@ void PlayerDatabase::Init()
 
 void PlayerDatabase::Shutdown()
 {
-	// Save database to file
-	ofstream fileOut;
-	fileOut.open("PlayerData.dat", ios::out | ios::binary); // Open file 
-
-	if (fileOut.good()) { // Check if the stream is good
-		fileOut.write((char*)leaderboard.GetPlayersInUse(), sizeof(unsigned int));
-
-		for (unsigned int i = 0; i < leaderboard.GetPlayersInUse(); i++) { // For each used player slot, read their data
-			fileOut.write((char*)leaderboard.playerList[i].GetHighscore(), sizeof(unsigned int));
-			fileOut.write((char*)leaderboard.playerList[i].GetName(), sizeof(char*));
-		}
-	}
-
-	fileOut.close();
+	cout << "Yo." << endl;
 }
 
 void PlayerDatabase::Draw()
@@ -55,6 +38,23 @@ void PlayerDatabase::Draw()
 
 void PlayerDatabase::Update()
 {
+}
+
+void PlayerDatabase::Save()
+{
+	// Save database to file
+	ofstream fileOut;
+	fileOut.open("PlayerData.dat", ios::out | ios::binary); // Open file 
+
+	if (fileOut.good()) { // Check if the stream is good
+		unsigned int temp = leaderboard.GetPlayersInUse();
+
+		fileOut.write((char*)&temp, sizeof(unsigned int));
+
+		fileOut.write((char*)leaderboard.playerList, sizeof(Player) * leaderboard.GetPlayersInUse());
+	}
+
+	fileOut.close();
 }
 
 void PlayerDatabase::displayMenu()
@@ -72,52 +72,43 @@ void PlayerDatabase::parseUserInput()
 
 	cin >> input;
 
-	switch (input) {
-	case 'Q':
-		PlayerDatabase::Shutdown();
+	if (cin.good()) {
+		switch (input)
+		{
+		case 'Q':
+		case 'q':
+			PlayerDatabase::Shutdown();
+			break;
+		case 'C':
+		case 'c':
+			leaderboard.AddPlayer();
+			Save();
+			break;
+		case 'D':
+		case 'd':
+			leaderboard.Draw();
 
-	case 'C':
-		char playerNameTemp[50];
-		unsigned int playerScoreTemp;
-		
-		cout << "#####################" << endl;
-		cout << "## Player Creation ##" << endl;
-		cout << "#####################" << endl;
-
-		cout << "\nEnter Player Name:" << endl; 
-
-		cin >> (char*)playerNameTemp; // Ask for name input and set a temp variable to hold it until Player class is created
-
-		system("cls");
-
-		//if (cin.good()) {
-		//	cout << "Enter Player Score:" << endl;
-		//	cin >> playerScoreTemp; // Ask for score input and set a temp variable to hold it until Player class is created
-
-		//	system("cls");
-
-		//}
-		
-		return;
-
-	case 'D':
-		// Display leaderboard
-		leaderboard.Draw();
-
-		cin >> input;
-		if (input == 'Q') {
-			return;
+			cin >> input;
+			if (input == 'Q' || input == 'q') {
+				return;
+			}
+			break;
+		case 'U':
+		case 'u':
+			// Display all players
+			// Select a player to modify
+			// Modify data
+			// Save data to file
+			cout << "Updated";
+			break;
+		case 'S':
+		case 's':
+			// Binary search
+			cout << "Searched";
+			break;
+		default:
+			break;
+			// Unknown
 		}
-
-	case 'U':
-		// Display all players
-		// Select a player to modify
-		// Modify data
-		// Save data to file
-		cout << "Updated";
-
-	case 'S':
-		// Binary search
-		cout << "Searched";
 	}
 }

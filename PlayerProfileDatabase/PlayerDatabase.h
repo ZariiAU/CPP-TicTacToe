@@ -13,14 +13,9 @@ protected:
 	virtual void Shutdown() override;
 	virtual void Draw() override;
 	virtual void Update() override;
+	void Save();
 
 private:
-	enum class MenuOptions {
-		Quit,
-		NewPlayer,
-		EditPlayer
-	};
-
 	PlayerBoard leaderboard;
 
 	void displayMenu();
