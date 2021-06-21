@@ -4,10 +4,12 @@
 
 using namespace std;
 
+const unsigned int MAX_NAME_SIZE = 50;
+
 class Player
 {
 private:
-	char m_name[50];
+	char m_name[MAX_NAME_SIZE];
 	int m_highscore;
 
 public:
